@@ -1,0 +1,105 @@
+# @package _global_
+
+defaults:
+  - override /model: nnp
+  - override /model/representation: so3net
+  - override /data: custom
+  - override /callbacks:
+      - checkpoint
+      - earlystopping
+      - lrmonitor
+
+run:
+  path: runs
+
+globals:
+  cutoff: 7.
+  lr: 0.0005
+  energy_key: energy
+  forces_key: forces
+  stress_key: stress
+
+data:
+  _target_: schnetpack.data.AtomsDataModule
+  num_train: 0.8
+  num_val: 0.2
+  data_workdir: /tmp/stefaan/${uuid:1}/testdata
+  distance_unit: Ang
+  property_units:
+    energy: eV
+    forces: eV/Ang
+    stress: eV/Ang/Ang/Ang
+  transforms:
+    - _target_: schnetpack.transform.RemoveOffsets
+      property: energy
+      remove_mean: True
+    - _target_: schnetpack.transform.CachedNeighborList
+      cache_path: /tmp/stefaah94/${uuid:1}/cache
+      keep_cache: False
+      neighbor_list:
+        _target_: schnetpack.transform.ASENeighborList
+        cutoff: ${globals.cutoff}
+    - _target_: schnetpack.transform.CastTo32
+
+model:
+  input_modules:
+    - _target_: schnetpack.atomistic.Strain
+    - _target_: schnetpack.atomistic.PairwiseDistances
+  output_modules:
+    - _target_: schnetpack.atomistic.Atomwise
+      output_key: ${globals.energy_key}
+      n_in: ${model.representation.n_atom_basis}
+      aggregation_mode: sum
+    - _target_: schnetpack.atomistic.Forces
+      energy_key: ${globals.energy_key}
+      force_key: ${globals.forces_key}
+      stress_key: ${globals.stress_key}
+      calc_stress: True
+  postprocessors:
+    - _target_: schnetpack.transform.CastTo64
+    - _target_: schnetpack.transform.AddOffsets
+      property: energy
+      add_mean: True
+  representation:
+    shared_interactions: True
+
+task:
+  optimizer_cls: torch.optim.AdamW
+  optimizer_args:
+    lr: ${globals.lr}
+    weight_decay: 0.02
+  outputs:
+    - _target_: schnetpack.task.ModelOutput
+      name: ${globals.energy_key}
+      loss_fn:
+        _target_: torch.nn.MSELoss
+      metrics:
+        mae:
+          _target_: torchmetrics.regression.MeanAbsoluteError
+        mse:
+          _target_: torchmetrics.regression.MeanSquaredError
+      loss_weight: 0.0001
+    - _target_: schnetpack.task.ModelOutput
+      name: ${globals.forces_key}
+      loss_fn:
+        _target_: torch.nn.MSELoss
+      metrics:
+        mae:
+          _target_: torchmetrics.regression.MeanAbsoluteError
+        mse:
+          _target_: torchmetrics.regression.MeanSquaredError
+        angle:
+          _target_: deepcryspy.force_field.metrics.AngleError
+      loss_weight: 0.9999
+    - _target_: schnetpack.task.ModelOutput
+      name: ${globals.stress_key}
+      loss_fn:
+        _target_: torch.nn.MSELoss
+      metrics:
+        mae:
+          _target_: torchmetrics.regression.MeanAbsoluteError
+        mse:
+          _target_: torchmetrics.regression.MeanSquaredError
+      loss_weight: 300
+trainer:
+  inference_mode: True

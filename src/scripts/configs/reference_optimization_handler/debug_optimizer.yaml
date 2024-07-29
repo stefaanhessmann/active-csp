@@ -1,0 +1,21 @@
+_target_: deepcryspy.job_handlers.task_handlers.OptimizationHandler
+hardware_interface:
+  _target_: deepcryspy.job_handlers.SlurmInterface
+executable: ${globals.executable}
+script: reference_optimization.py
+slurm_args:
+  job-name: ref_opt
+  partition: cpu-2h
+  gpus-per-node: 0
+  ntasks-per-node: 16
+  time: 0-00:02:00
+calculator_inputs: ${reference_computation.calculator_inputs}
+kspacing: ${reference_computation.kspacing}
+pseudopotentials: ${reference_computation.pseudopotentials}
+pwx_path: ${reference_computation.pwx_path}
+n_threads: ${reference_computation.n_threads}
+n_processes: ${reference_computation.n_processes}
+max_steps: ${globals.max_steps}
+damping: ${globals.damping}
+force_th: ${globals.force_th}
+state_path: state_optimization_handler.yaml

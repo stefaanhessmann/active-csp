@@ -1,0 +1,71 @@
+# @package _global_
+
+name: si2
+train_pool: None
+search_pool: None
+
+globals:
+  n_models: 3
+  n_atom_basis: 32
+  n_interactions: 1
+  l_max: 2
+  cutoff: 5.
+  lr_factor: 0.5
+  lr_patience: 50
+  early_stopping_patience: 200
+  max_steps: 30
+  damping: 0.7
+  force_th: 0.5
+
+reference_computation:
+  calculator_inputs:
+    prefix: relaxation
+    outdir: ./
+    wfcdir: /tmp
+    pseudo_dir: ???
+    tstress: true
+    tprnfor: true
+    ecutwfc: 58.
+    occupations: smearing
+    n_typ: 1
+    degauss: 0.01
+    ibrav: 0
+  pseudopotentials:
+    Si: Si.pbe-n-kjpaw_psl.1.0.0.UPF
+  pwx_path: pw.x
+  kspacing: 0.2
+  n_threads: 1
+  n_processes: 1
+
+paths:
+  run_dir: runs/si2
+
+candidate_pool:
+  train_pool:
+    generator:
+      _target_: deepcryspy.structure_generation.Rnd_struc_gen
+      atype:
+        - Si
+      dangle: 30
+      maxlen: 4.0
+      mindist:
+        - - 1.
+      minlen: 1.0
+      nat:
+        - 2
+      natot: 2
+    n_structures: 200
+  selection_pool:
+    generator:
+      _target_: deepcryspy.structure_generation.Rnd_struc_gen_pyxtal
+      atype:
+        - Si
+      dangle: 30
+      maxlen: 4.0
+      mindist:
+        - - 1.
+      minlen: 1.0
+      nat:
+        - 2
+      natot: 2
+    n_structures: 200

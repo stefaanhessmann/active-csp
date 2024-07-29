@@ -1,0 +1,10 @@
+run_dir: ${hydra:runtime.cwd}
+experiment_id: ${oc.env:SLURM_JOBID,local}
+experiment_dir: ${paths.run_dir}/${paths.experiment_id}
+data_dir: data
+inference_models: ${paths.data_dir}/inference_models
+train_db: ${paths.data_dir}/train.db
+candidate_pool: ${paths.data_dir}/candidate_pool.db
+tmp_pool: ${paths.data_dir}/tmp_pool.db
+train_configs: ???
+configs_file: configs.yaml

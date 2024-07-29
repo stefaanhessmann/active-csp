@@ -1,0 +1,14 @@
+n_candidates: 100
+n_best: 3
+n_models: 5
+n_atom_basis: 64
+n_interactions: 3
+l_max: 2
+lr_factor: 0.5
+lr_patience: 250
+early_stopping_patience: 500
+cutoff: 7.0
+max_steps: 300
+force_th: 0.05
+executable: ???
+n_processes: 4

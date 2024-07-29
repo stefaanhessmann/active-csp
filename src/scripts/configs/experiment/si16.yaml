@@ -1,0 +1,71 @@
+# @package _global_
+
+name: si16
+
+
+candidate_pool:
+  train_pool:
+    generator:
+      _target_: deepcryspy.structure_generation.Rnd_struc_gen
+      mindist:
+        - - 1.6
+      atype:
+        - Si
+      dangle: 30
+      maxlen: 15
+      minlen: 3
+      nat:
+        - 16
+      natot: 16
+    n_structures: 1000
+  selection_pool:
+    generator:
+      _target_: deepcryspy.structure_generation.DBLoader
+      db_path: ???
+    n_structures: null
+
+
+globals:
+  n_models: 5
+  n_atom_basis: 64
+  n_interactions: 2
+  l_max: 2
+  cutoff: 7.
+  lr_factor: 0.5
+  lr_patience: 250
+  early_stopping_patience: 500
+  # max_steps: 30
+  damping: 0.7
+  force_th: 0.05
+
+reference_computation:
+  calculator_inputs:
+    prefix: relaxation
+    outdir: ./
+    wfcdir: /tmp
+    pseudo_dir: ???
+    tstress: true
+    tprnfor: true
+    ecutwfc: 58.
+    occupations: smearing
+    n_typ: 1
+    degauss: 0.01
+    ibrav: 0
+  pseudopotentials:
+    Si: Si.pbe-n-kjpaw_psl.1.0.0.UPF
+  pwx_path: pw.x
+  kspacing: 0.2
+  n_threads: 1
+  n_processes: 16
+
+reference_selection:
+  _target_: deepcryspy.selection.selection.ScoringBasedSelection
+  n_candidates: ${globals.n_candidates}
+  scoring_function: laqa
+  scoring_function_args:
+    force_weight: 0.5
+  use_train_ids: true
+  use_select_ids: false
+
+paths:
+  run_dir: paper_experiments/si16_10iterations

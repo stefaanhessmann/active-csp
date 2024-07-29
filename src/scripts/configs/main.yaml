@@ -1,0 +1,163 @@
+# @package _global_
+
+defaults:
+  - _self_
+  - paths: default_paths
+  - globals: default_globals
+  - reference_calculation_handler: qe_calculator
+  - experiment: si16
+
+# hydra configuration
+hydra:
+    job:
+      chdir: True
+    # output paths for hydra logs
+    run:
+        dir: ${paths.experiment_dir}
+
+clustering:
+  _target_: deepcryspy.selection.clustering.DBSCANClustering
+  eps: 0.5
+  min_sampled: 2
+  min_different: 200
+  max_tries: 10
+  max_cluster_size: 500
+  recluster_stable: false
+
+stopping_criterion:
+  _target_: deepcryspy.job_handlers.task_handlers.StoppingCriterion
+  hardware_interface:
+    _target_: deepcryspy.job_handlers.SlurmInterface
+  executable: null
+  script: stopping_criterion.py
+  n_models: ${globals.n_models}
+  epsilon: 0.01
+  n_clusters: 10
+  eps: ${clustering.eps}
+  min_sampled: ${clustering.min_sampled}
+  min_different: ${clustering.min_different}
+  max_tries: ${clustering.max_tries}
+  max_cluster_size: ${clustering.max_cluster_size}
+  recluster_stable: ${clustering.recluster_stable}
+  cutoff: ${globals.cutoff}
+  batch_size: 10
+  device: cuda
+  slurm_args:
+    job-name: stopping_crit
+    partition: gpu-2d
+    gpus-per-node: 1
+    ntasks-per-node: 4
+    time: 2-00:00:00
+    constraint: 80gb|40gb
+    exclude: head046,head073
+  include_train_structures: False
+
+reference_calculation:
+  noise: 0.4
+  noise_factor: 0.6
+  noise_on_first_cycle: false
+
+target_selection:
+  _target_: deepcryspy.selection.selection.MostStableSelection
+  n_best: ${globals.n_best}
+
+reference_optimization_handler:
+  _target_: deepcryspy.job_handlers.task_handlers.OptimizationHandler
+  hardware_interface:
+    _target_: deepcryspy.job_handlers.SlurmInterface
+  executable: ${globals.executable}
+  script: reference_optimization.py
+  slurm_args:
+    job-name: ref_opt
+    partition: cpu-7d
+    gpus-per-node: 0
+    ntasks-per-node: ${reference_computation.n_processes}
+    time: 7-00:00:00
+  calculator_inputs: ${reference_computation.calculator_inputs}
+  kspacing: ${reference_computation.kspacing}
+  pseudopotentials: ${reference_computation.pseudopotentials}
+  pwx_path: ${reference_computation.pwx_path}
+  n_threads: ${reference_computation.n_threads}
+  n_processes: ${reference_computation.n_processes}
+  max_steps: ${globals.max_steps}
+  damping: ${globals.damping}
+  force_th: ${globals.force_th}
+  state_path: state_optimization_handler.yaml
+
+
+train_handler:
+  _target_: deepcryspy.job_handlers.task_handlers.TrainHandler
+  hardware_interface:
+    _target_: deepcryspy.job_handlers.SlurmInterface
+  executable: ${globals.executable}
+  n_models: ${globals.n_models}
+  experiment: so3net
+  db_path: ${paths.train_db}
+  cutoff: ${globals.cutoff}
+  n_atom_basis: ${globals.n_atom_basis}
+  n_interactions: ${globals.n_interactions}
+  l_max: ${globals.l_max}
+  lr_patience: ${globals.lr_patience}
+  lr_factor: ${globals.lr_factor}
+  early_stopping_patience: ${globals.early_stopping_patience}
+  inference_path: ${paths.inference_models}
+  configs_path: ${paths.train_configs}
+  accelerator: cuda
+  script: spktrain
+  slurm_args:
+    job-name: train
+    partition: gpu-2h
+    gpus-per-node: 1
+    ntasks-per-node: 4
+    time: 0-02:00:00
+    constraint: 80gb|40gb
+    exclude: head046,head073
+  state_path: train_state.yaml
+
+pool_optimization_handler:
+  _target_: deepcryspy.job_handlers.task_handlers.PoolOptimizationHandler
+  hardware_interface:
+    _target_: deepcryspy.job_handlers.SlurmInterface
+  executable: ${globals.executable}
+  script: pool_optimization.py
+  slurm_args:
+    job-name: pool_opt
+    partition: gpu-2d
+    gpus-per-node: 1
+    ntasks-per-node: 4
+    time: 2-00:00:00
+    constraint: 80gb|40gb
+    exclude: head046,head073
+  model_path: ${paths.inference_models}
+  cutoff: ${globals.cutoff}
+  max_steps: ${globals.max_steps}
+  force_th: ${globals.force_th}
+  energy_patience: 20
+  uncertainty_th: 0.5
+  device: cuda
+  n_tasks: 20
+  input_db: ${paths.candidate_pool}
+  output_db: ${paths.tmp_pool}
+  state_path: state_pool_optimization.yaml
+
+
+representation_handler:
+  _target_: deepcryspy.job_handlers.task_handlers.RepresentationComputationHandler
+  hardware_interface:
+    _target_: deepcryspy.job_handlers.SlurmInterface
+  executable: ${globals.executable}
+  script: compute_representations.py
+  slurm_args:
+    job-name: get_repr
+    partition: gpu-2h
+    gpus-per-node: 1
+    ntasks-per-node: 4
+    time: 0-02:00:00
+    constraint: 80gb|40gb
+    exclude: head046,head073
+  pool_path: ${paths.tmp_pool}
+  inference_path: ${paths.inference_models}
+  cutoff: ${globals.cutoff}
+  batch_size: 10
+  device: cuda
+  state_path: state_compute_representations.yaml
