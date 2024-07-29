@@ -6,10 +6,10 @@ Welcome to the GitHub repository for our software package designed for active le
 
 This software package facilitates the active learning process for crystal structure search by utilizing neural network ensembles. The main job script, `active_csp_run.py`, orchestrates the submission of various worker jobs responsible for:
 
-- Training neural network models
-- Computing reference data using Density Functional Theory (DFT)
+- Training machine learning force fields
+- Computing reference data using DFT
 - Running structure relaxations
-- And more
+- Validating final structures with DFT
 
 Each worker job is associated with a separate script that is installed alongside the main package.
 
