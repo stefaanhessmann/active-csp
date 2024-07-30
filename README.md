@@ -18,8 +18,11 @@ Each worker job is associated with a separate script that is installed alongside
 To install the package and the corresponding scripts, navigate to the repository root directory and run:
 
 ```bash
+pip install -r requirements.txt
 python setup.py install
 ```
+
+Furthermore, to run DFT calculations, an installation of Quantum Espresso is required.
 
 ## Running the Code
 
