@@ -1,6 +1,6 @@
-_target_: activecsp.job_handlers.task_handlers.ComputationHandler
+_target_: activecsp.jobs.task_handlers.ComputationHandler
 hardware_interface:
-  _target_: activecsp.job_handlers.SlurmInterface
+  _target_: activecsp.jobs.SlurmInterface
 executable: ${globals.executable}
 script: compute_reference_labels.py
 slurm_args:

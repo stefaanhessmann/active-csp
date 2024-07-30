@@ -1,6 +1,6 @@
-_target_: activecsp.job_handlers.task_handlers.OptimizationHandler
+_target_: activecsp.jobs.task_handlers.OptimizationHandler
 hardware_interface:
-  _target_: activecsp.job_handlers.SlurmInterface
+  _target_: activecsp.jobs.SlurmInterface
 executable: ${globals.executable}
 script: reference_optimization.py
 slurm_args:

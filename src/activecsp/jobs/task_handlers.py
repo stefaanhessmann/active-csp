@@ -14,7 +14,7 @@ from typing import List, Optional, Dict
 from activecsp.utils.state_tracker import StateTracker
 from activecsp import Paths
 import json
-from activecsp.job_handlers.hardware_interface import HardwareInterface
+from activecsp.jobs.hardware_interface import HardwareInterface
 from activecsp import Properties
 import time
 import subprocess

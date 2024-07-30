@@ -8,7 +8,7 @@ import hydra
 from omegaconf import DictConfig, OmegaConf
 from activecsp.utils.db import write_pool, mask_relaxation_ids, get_atoms
 from activecsp.utils.state_tracker import StateTracker
-from activecsp.job_handlers import (
+from activecsp.jobs import (
     TrainHandler,
     ComputationHandler,
     OptimizationHandler,
@@ -87,7 +87,7 @@ def run(config: DictConfig):
     stopping_criterion: StoppingCriterion = hydra.utils.instantiate(
         config.stopping_criterion
     )
-    job_handlers = [
+    jobs = [
         reference_optimization_handler,
         reference_calculation_handler,
         train_handler,
@@ -110,12 +110,12 @@ def run(config: DictConfig):
         while any(
             [
                 handler.jobs_running()
-                for handler in job_handlers
+                for handler in jobs
                 if handler != reference_optimization_handler
             ]
         ):
             active_handlers = [
-                handler for handler in job_handlers if handler.jobs_running()
+                handler for handler in jobs if handler.jobs_running()
             ]
             for handler in active_handlers:
                 handler.handle_jobs()
