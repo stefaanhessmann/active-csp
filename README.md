@@ -42,14 +42,14 @@ This script is designed to run on our SLURM-based high-performance computing (HP
 
 ## Configuration
 
-We utilize Hydra for configuring our experiments. The settings used in our publication are available in `src/scripts/configs/experiments`. Hydra allows for flexible and hierarchical configuration management, making it easier to reproduce and tweak experiments.
+We utilize [Hydra](https://hydra.cc/docs/intro/) for configuring our experiments. The settings used in our publication are available in `src/scripts/configs/experiments`. Hydra allows for flexible and hierarchical configuration management, making it easier to reproduce and tweak experiments.
 
 ## Dependencies
 
 Currently, the package supports the following interfaces:
 
-- **DFT**: Quantum Espresso
-- **Machine learning forces fields**: SchNetPack
+- **DFT**: [Quantum Espresso](https://www.quantum-espresso.org/)
+- **Machine learning forces fields**: [SchNetPack](https://github.com/atomistic-machine-learning/schnetpack)
 
 Additional tools for labeling data and force field models can be integrated by implementing the necessary interfaces.
 
