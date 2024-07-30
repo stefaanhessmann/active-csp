@@ -23,13 +23,13 @@ python setup.py install
 
 ## Running the Code
 
-To start the main job, use the following command:
+To test the installation, start a simulation on Si2 with the following command:
 
 ```bash
-python src/scripts/active_csp_run.py experiment=si16
+python src/scripts/active_csp_run.py experiment=si2
 ```
 
-This script is designed to run on a SLURM-based high-performance computing (HPC) cluster due to the significant computational power required for the tasks. Adapting the code to run on other systems may necessitate writing your own hardware interface. As a reference, you can modify the example provided in `src/active_csp/jobs/hardware_interface`.
+This script is designed to run on our SLURM-based high-performance computing (HPC) cluster due to the significant computational power required for the tasks. Adapting the code to run on other systems may necessitate writing your own hardware interface. As a reference, you can modify the example provided in `src/active_csp/jobs/hardware_interface`.
 
 ## Configuration
 
