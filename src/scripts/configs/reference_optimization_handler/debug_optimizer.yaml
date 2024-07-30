@@ -1,6 +1,6 @@
-_target_: deepcryspy.job_handlers.task_handlers.OptimizationHandler
+_target_: activecsp.job_handlers.task_handlers.OptimizationHandler
 hardware_interface:
-  _target_: deepcryspy.job_handlers.SlurmInterface
+  _target_: activecsp.job_handlers.SlurmInterface
 executable: ${globals.executable}
 script: reference_optimization.py
 slurm_args:

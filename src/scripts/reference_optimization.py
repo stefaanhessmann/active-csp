@@ -3,7 +3,7 @@
 
 from ase.io import read, write
 import argparse
-from deepcryspy.utils.state_tracker import StateTracker
+from activecsp.utils.state_tracker import StateTracker
 
 from scripts.utils.script_functions import espresso_optimization
 import json

@@ -6,16 +6,16 @@ from ase.db import connect
 import numpy as np
 from ase.io.cif import write_cif
 from ase.io import read
-from deepcryspy.utils import read_yaml, split_ids
+from activecsp.utils import read_yaml, split_ids
 from collections import defaultdict
 import torch
 import torch.nn as nn
 from typing import List, Optional, Dict
-from deepcryspy.utils.state_tracker import StateTracker
-from deepcryspy import Paths
+from activecsp.utils.state_tracker import StateTracker
+from activecsp import Paths
 import json
-from deepcryspy.job_handlers.hardware_interface import HardwareInterface
-from deepcryspy import Properties
+from activecsp.job_handlers.hardware_interface import HardwareInterface
+from activecsp import Properties
 import time
 import subprocess
 

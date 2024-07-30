@@ -1,7 +1,7 @@
 import numpy as np
 from ase.db import connect
 import random
-from deepcryspy.utils import standardize
+from activecsp.utils import standardize
 
 __all__ = [
     "get_random_scores",

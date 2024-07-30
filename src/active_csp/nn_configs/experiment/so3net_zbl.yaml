@@ -98,7 +98,7 @@ task:
         mse:
           _target_: torchmetrics.regression.MeanSquaredError
         angle:
-          _target_: deepcryspy.force_field.metrics.AngleError
+          _target_: activecsp.force_field.metrics.AngleError
       loss_weight: 0.9999
     - _target_: schnetpack.task.ModelOutput
       name: ${globals.stress_key}

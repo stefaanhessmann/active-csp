@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 
-from deepcryspy.utils.state_tracker import StateTracker
+from activecsp.utils.state_tracker import StateTracker
 import argparse
 import os
 

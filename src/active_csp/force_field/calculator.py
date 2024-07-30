@@ -2,8 +2,8 @@ import numpy as np
 from ase.constraints import full_3x3_to_voigt_6_stress
 from typing import Optional, List, Callable
 import schnetpack as spk
-from deepcryspy.force_field import AtomsConverter
-from deepcryspy import Properties
+from activecsp.force_field import AtomsConverter
+from activecsp import Properties
 from ase.calculators.calculator import Calculator, all_changes
 
 

@@ -1,15 +1,15 @@
 import numpy as np
 from ase.db import connect
 from random import shuffle
-from deepcryspy.utils.db import (
+from activecsp.utils.db import (
     get_metadata,
     get_atoms,
     get_energies,
     get_property,
     get_masked_ids,
 )
-from deepcryspy.selection.clustering import labels_to_clusters
-from deepcryspy.selection import build_scoring_function
+from activecsp.selection.clustering import labels_to_clusters
+from activecsp.selection import build_scoring_function
 
 
 __all__ = [

@@ -16,7 +16,7 @@ setup(
     packages=find_packages("src"),
     package_dir={"": "src"},
     scripts=[
-        "src/scripts/main.py",
+        "src/scripts/active_csp_run.py",
         "src/scripts/compute_reference_labels.py",
         "src/scripts/compute_representations.py",
         "src/scripts/pool_optimization.py",
@@ -27,6 +27,5 @@ setup(
     install_requires=[],
     include_package_data=True,
     license="MIT",
-    description="Active Learning for Crystal St",
-    long_description="todo",
+    description="Accelerating Crystal Structure Search through Active Learning with Neural Networks for Rapid Relaxations",
 )

@@ -1,4 +1,4 @@
 status_tracker:
-    _target_: deepcryspy.force_field.StatusTracker
+    _target_: activecsp.force_field.StatusTracker
     done_path: .done
     status_path: state.yaml

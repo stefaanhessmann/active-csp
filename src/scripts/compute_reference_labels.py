@@ -5,7 +5,7 @@ from ase.io import read
 import argparse
 import json
 
-from deepcryspy.utils.state_tracker import StateTracker
+from activecsp.utils.state_tracker import StateTracker
 from scripts.utils.script_functions import espresso_evaluation
 
 

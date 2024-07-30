@@ -6,9 +6,9 @@ from ase.db import connect
 import numpy as np
 import hydra
 from omegaconf import DictConfig, OmegaConf
-from deepcryspy.utils.db import write_pool, mask_relaxation_ids, get_atoms
-from deepcryspy.utils.state_tracker import StateTracker
-from deepcryspy.job_handlers import (
+from activecsp.utils.db import write_pool, mask_relaxation_ids, get_atoms
+from activecsp.utils.state_tracker import StateTracker
+from activecsp.job_handlers import (
     TrainHandler,
     ComputationHandler,
     OptimizationHandler,
@@ -16,13 +16,13 @@ from deepcryspy.job_handlers import (
     RepresentationComputationHandler,
     StoppingCriterion,
 )
-from deepcryspy.selection import (
+from activecsp.selection import (
     Clustering,
     CandidateSelection,
     random_selection,
     cluster_by_representations_old,
 )
-from deepcryspy import Paths
+from activecsp import Paths
 import logging
 from schnetpack.utils.script import log_hyperparameters, print_config
 

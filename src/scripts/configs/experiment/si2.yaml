@@ -43,7 +43,7 @@ paths:
 candidate_pool:
   train_pool:
     generator:
-      _target_: deepcryspy.structure_generation.Rnd_struc_gen
+      _target_: activecsp.structure_generation.Rnd_struc_gen
       atype:
         - Si
       dangle: 30
@@ -57,7 +57,7 @@ candidate_pool:
     n_structures: 200
   selection_pool:
     generator:
-      _target_: deepcryspy.structure_generation.Rnd_struc_gen_pyxtal
+      _target_: activecsp.structure_generation.Rnd_struc_gen_pyxtal
       atype:
         - Si
       dangle: 30

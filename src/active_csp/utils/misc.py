@@ -6,7 +6,7 @@ import yaml
 from ase.db import connect
 from filelock import FileLock
 
-from deepcryspy.utils import Properties
+from activecsp.utils import Properties
 
 
 def filter_db(means, stds, db_path):

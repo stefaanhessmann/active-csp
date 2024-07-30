@@ -7,8 +7,8 @@ from tqdm import tqdm
 import numpy as np
 from schnetpack.data import ASEAtomsData, AtomsLoader
 from schnetpack.transform import CastTo32, MatScipyNeighborList
-from deepcryspy.selection import DBSCANClustering, labels_to_clusters
-from deepcryspy.utils.db import get_select_ids
+from activecsp.selection import DBSCANClustering, labels_to_clusters
+from activecsp.utils.db import get_select_ids
 import argparse
 import shutil
 from yaml import dump

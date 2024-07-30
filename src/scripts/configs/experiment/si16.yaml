@@ -6,7 +6,7 @@ name: si16
 candidate_pool:
   train_pool:
     generator:
-      _target_: deepcryspy.structure_generation.Rnd_struc_gen
+      _target_: activecsp.structure_generation.Rnd_struc_gen
       mindist:
         - - 1.6
       atype:
@@ -20,7 +20,7 @@ candidate_pool:
     n_structures: 1000
   selection_pool:
     generator:
-      _target_: deepcryspy.structure_generation.DBLoader
+      _target_: activecsp.structure_generation.DBLoader
       db_path: ???
     n_structures: null
 
@@ -59,7 +59,7 @@ reference_computation:
   n_processes: 16
 
 reference_selection:
-  _target_: deepcryspy.selection.selection.ScoringBasedSelection
+  _target_: activecsp.selection.selection.ScoringBasedSelection
   n_candidates: ${globals.n_candidates}
   scoring_function: laqa
   scoring_function_args:

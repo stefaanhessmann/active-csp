@@ -16,7 +16,7 @@ hydra:
         dir: ${paths.experiment_dir}
 
 clustering:
-  _target_: deepcryspy.selection.clustering.DBSCANClustering
+  _target_: activecsp.selection.clustering.DBSCANClustering
   eps: 0.5
   min_sampled: 2
   min_different: 200
@@ -25,9 +25,9 @@ clustering:
   recluster_stable: false
 
 stopping_criterion:
-  _target_: deepcryspy.job_handlers.task_handlers.StoppingCriterion
+  _target_: activecsp.job_handlers.task_handlers.StoppingCriterion
   hardware_interface:
-    _target_: deepcryspy.job_handlers.SlurmInterface
+    _target_: activecsp.job_handlers.SlurmInterface
   executable: null
   script: stopping_criterion.py
   n_models: ${globals.n_models}
@@ -58,13 +58,13 @@ reference_calculation:
   noise_on_first_cycle: false
 
 target_selection:
-  _target_: deepcryspy.selection.selection.MostStableSelection
+  _target_: activecsp.selection.selection.MostStableSelection
   n_best: ${globals.n_best}
 
 reference_optimization_handler:
-  _target_: deepcryspy.job_handlers.task_handlers.OptimizationHandler
+  _target_: activecsp.job_handlers.task_handlers.OptimizationHandler
   hardware_interface:
-    _target_: deepcryspy.job_handlers.SlurmInterface
+    _target_: activecsp.job_handlers.SlurmInterface
   executable: ${globals.executable}
   script: reference_optimization.py
   slurm_args:
@@ -86,9 +86,9 @@ reference_optimization_handler:
 
 
 train_handler:
-  _target_: deepcryspy.job_handlers.task_handlers.TrainHandler
+  _target_: activecsp.job_handlers.task_handlers.TrainHandler
   hardware_interface:
-    _target_: deepcryspy.job_handlers.SlurmInterface
+    _target_: activecsp.job_handlers.SlurmInterface
   executable: ${globals.executable}
   n_models: ${globals.n_models}
   experiment: so3net
@@ -115,9 +115,9 @@ train_handler:
   state_path: train_state.yaml
 
 pool_optimization_handler:
-  _target_: deepcryspy.job_handlers.task_handlers.PoolOptimizationHandler
+  _target_: activecsp.job_handlers.task_handlers.PoolOptimizationHandler
   hardware_interface:
-    _target_: deepcryspy.job_handlers.SlurmInterface
+    _target_: activecsp.job_handlers.SlurmInterface
   executable: ${globals.executable}
   script: pool_optimization.py
   slurm_args:
@@ -142,9 +142,9 @@ pool_optimization_handler:
 
 
 representation_handler:
-  _target_: deepcryspy.job_handlers.task_handlers.RepresentationComputationHandler
+  _target_: activecsp.job_handlers.task_handlers.RepresentationComputationHandler
   hardware_interface:
-    _target_: deepcryspy.job_handlers.SlurmInterface
+    _target_: activecsp.job_handlers.SlurmInterface
   executable: ${globals.executable}
   script: compute_representations.py
   slurm_args:

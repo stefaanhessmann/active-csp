@@ -14,8 +14,8 @@ from schnetpack.data import ASEAtomsData, AtomsLoader
 from schnetpack.transform import CastTo32, MatScipyNeighborList
 from tqdm import tqdm
 
-from deepcryspy import Properties
-from deepcryspy.force_field import NNEnsemble, EnsembleCalculator
+from activecsp import Properties
+from activecsp.force_field import NNEnsemble, EnsembleCalculator
 from ase.io.trajectory import Trajectory
 
 

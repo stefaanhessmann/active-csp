@@ -4,7 +4,7 @@
 from ase.io import read
 import argparse
 
-from deepcryspy.utils.state_tracker import StateTracker
+from activecsp.utils.state_tracker import StateTracker
 import numpy as np
 
 
