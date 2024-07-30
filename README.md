@@ -23,7 +23,13 @@ python setup.py install
 
 ## Running the Code
 
-To test the installation, start a simulation on Si2 with the following command:
+To test the installation, we provide a test configuration for Si2. To run it, some arguments in the configuration file at `src/scripts/config/experiments/si2.yaml` need to be defined:
+
+- `globals.executable`: Executable for running the scripy. This could either be just `python`, or for example an Apptainer container.
+- `reference_computation.calculator_inputs.pseudo_dir`: Path to the pseudopotentials directory of Quantum Espresso.
+- `paths.train_configs`: Path to the directory of `hydra` configs for training the neural network models. This can be for example the configs that we provide at `src/activecsp/nn_configs`.
+
+Next, the following command starts a main job a new simulation:
 
 ```bash
 python src/scripts/active_csp_run.py experiment=si2
