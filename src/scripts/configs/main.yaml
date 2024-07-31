@@ -161,3 +161,12 @@ representation_handler:
   batch_size: 10
   device: cuda
   state_path: state_compute_representations.yaml
+
+reference_selection:
+  _target_: activecsp.selection.selection.ScoringBasedSelection
+  n_candidates: ${globals.n_candidates}
+  scoring_function: laqa
+  scoring_function_args:
+    force_weight: 0.5
+  use_train_ids: true
+  use_select_ids: false
