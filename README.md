@@ -32,7 +32,7 @@ To test the installation, we provide a test configuration for Si2. To run it, so
 - `reference_computation.calculator_inputs.pseudo_dir`: Path to the pseudopotentials directory of Quantum Espresso.
 - `paths.train_configs`: Path to the directory of `hydra` configs for training the neural network models. This can be for example the configs that we provide at `src/activecsp/nn_configs`.
 
-Next, the following command starts a main job a new simulation:
+Next, the following command starts the main job for a new simulation:
 
 ```bash
 python src/scripts/active_csp_run.py experiment=si2
