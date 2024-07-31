@@ -3,6 +3,9 @@
 Welcome to the GitHub repository for our software package designed for active learning with neural network ensembles in the context of crystal structure search. This repository contains the codebase used in our recent publication, which leverages high-performance computing resources for efficient and effective crystal structure prediction.
 
 ## Overview
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/f3bc6f84-1b01-4123-ba96-f693486f610b" alt="Overview figure" width="600"/>
+</p>
 
 This software package facilitates the active learning process for crystal structure search by utilizing neural network ensembles. The main job script, `active_csp_run.py`, orchestrates the submission of various worker jobs responsible for:
 
@@ -28,7 +31,7 @@ Furthermore, to run DFT calculations, an installation of Quantum Espresso is req
 
 To test the installation, we provide a test configuration for Si2. To run it, some arguments in the configuration file at `src/scripts/config/experiments/si2.yaml` need to be defined:
 
-- `globals.executable`: Executable for running the job scripts. This could either be left empty (`null`), or for example with the [Apptainer](https://apptainer.org/documentation/) image that we provide in the supplementary data.
+- `globals.executable`: Executable for running the job scripts. This could either be left empty (`null`), or for example the [Apptainer](https://apptainer.org/documentation/) image that we provide in the supplementary data can be used.
 - `reference_computation.calculator_inputs.pseudo_dir`: Path to the pseudopotentials directory of Quantum Espresso.
 - `paths.train_configs`: Path to the directory of `hydra` configs for training the neural network models. This can be for example the configs that we provide at `src/activecsp/nn_configs`.
 
