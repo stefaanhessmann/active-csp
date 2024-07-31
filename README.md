@@ -1,4 +1,4 @@
-# active-csp
+# active-csp: Accelerating Crystal Structure Search through Active Learning with Neural Networks for Rapid Relaxations
 
 Welcome to the GitHub repository for our software package designed for active learning with neural network ensembles in the context of crystal structure search. This repository contains the codebase used in our recent publication, which leverages high-performance computing resources for efficient and effective crystal structure prediction.
 
