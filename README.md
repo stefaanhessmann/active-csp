@@ -31,7 +31,7 @@ Furthermore, to run DFT calculations, an installation of Quantum Espresso is req
 
 To test the installation, we provide a test configuration for Si2. To run it, some arguments in the configuration file at `src/scripts/config/experiments/si2.yaml` need to be defined:
 
-- `globals.executable`: Executable for running the job scripts. This could either be left empty (`null`), or for example the [Apptainer](https://apptainer.org/documentation/) image that we provide in the supplementary data can be used.
+- `globals.executable`: Executable for running the job scripts. This could either be left empty (`null`), or for example the [Apptainer](https://apptainer.org/documentation/) image that we provide on Zenodo (DOI 10.5281/zenodo.13145078) can be used.
 - `reference_computation.calculator_inputs.pseudo_dir`: Path to the pseudopotentials directory of Quantum Espresso.
 - `paths.train_configs`: Path to the directory of `hydra` configs for training the neural network models. This can be for example the configs that we provide at `src/activecsp/nn_configs`.
 
